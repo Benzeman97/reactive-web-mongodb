@@ -64,8 +64,6 @@ public class FluxAndMonoTest {
     @Test
     public void monoTest_WithError()
     {
-
-
         StepVerifier.create(Mono.error(()->new RuntimeException("Exception is occurred")).log())
                 //.expectError(RuntimeException.class)
                 .expectErrorMessage("Exception is occurred")

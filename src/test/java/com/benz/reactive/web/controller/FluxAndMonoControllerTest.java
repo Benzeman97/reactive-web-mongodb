@@ -19,6 +19,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @WebFluxTest
 public class FluxAndMonoControllerTest {
+    
 
     @Autowired
     WebTestClient webTestClient;
@@ -26,7 +27,10 @@ public class FluxAndMonoControllerTest {
     @Test
    public void flux_approach1()
    {
-     Flux<Integer> integerFlux= webTestClient.get().uri("/reactive/fluxstream")
+
+
+
+     Flux<Integer> integerFlux= webTestClient.get().uri("/reactive/flux")
                .accept(MediaType.APPLICATION_STREAM_JSON)
                .exchange()
                .expectStatus().isOk()

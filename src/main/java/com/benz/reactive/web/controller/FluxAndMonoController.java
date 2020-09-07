@@ -33,4 +33,5 @@ public class FluxAndMonoController {
         return Mono.just(67)
                 .log();
     }
+
 }

@@ -19,7 +19,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @WebFluxTest
 public class FluxAndMonoControllerTest {
-    
+
 
     @Autowired
     WebTestClient webTestClient;
@@ -85,5 +85,25 @@ public class FluxAndMonoControllerTest {
                .consumeWith(response->{
                    Assert.assertEquals(expectedExchangeResult,response.getResponseBody());
                });
+   }
+
+   @Test
+   public void fluxStream()
+   {
+      Flux<Long> longFlux= webTestClient.get().uri("/reactive/fluxstream")
+               .accept(MediaType.APPLICATION_STREAM_JSON)
+               .exchange()
+               .expectStatus().isOk()
+               .returnResult(Long.class)
+               .getResponseBody();
+
+       StepVerifier.create(longFlux)
+               .expectSubscription()
+               .expectNext(0L)
+               .expectNext(1L,2L,3L,4L,5L)
+               .thenCancel()
+               .verify();//subscribe
+
+
    }
 }

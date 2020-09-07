@@ -106,4 +106,18 @@ public class FluxAndMonoControllerTest {
 
 
    }
+
+   @Test
+   public void mono()
+   {
+       Integer expectedInteger=67;
+
+         webTestClient.get().uri("/reactive/mono")
+                 .exchange()
+                 .expectStatus().isOk()
+                 .expectBody(Integer.class)
+                 .consumeWith(response->{
+                     Assert.assertEquals(expectedInteger,response.getResponseBody());
+                 });
+   }
 }
